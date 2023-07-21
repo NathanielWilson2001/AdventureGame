@@ -1,0 +1,48 @@
+# Nathaniel Wilson
+#
+
+stages:
+        - setup
+        - build
+        - test
+
+check-file-structure:
+        stage: setup
+        tags:
+                - ugrad 
+        script:          
+        - test -d Lab10
+        - test -d Lab10/adventure
+        - test -d Lab10/duesex
+        - test -f Lab10/adventure/simulation.c
+        - test -f Lab10/adventure/simulation.h
+        - test -f Lab10/adventure/LandOfTrebor.h
+        - test -f Lab10/adventure/LandOfTrebor.c
+        - test -f Lab10/adventure/Makefile
+        - test -f Lab10/duesex/duesex.c
+        - test -f Lab10/duesex/duesex.h
+        - test -f Lab10/duesex/simulation.h
+        - test -f Lab10/duesex/simulation.c
+        - test -f Lab10/duesex/Makefile
+
+run-Adventure:
+        stage: test
+        tags:
+                - ugrad
+        script:
+                - cd Lab10/adventure
+                - rm -f sim *.txt
+                - make
+                - test -f sim
+                - test -f Power_dead.txt
+                - test -f Power_alive.txt
+                - test -f Level_dead.txt
+                - test -f Level_alive.txt
+                - test -f Charm_dead.txt
+                - test -f Charm_alive.txt
+                - test -f Agility_alive.txt
+                - test -f Agility_dead.txt
+                - test -f Intelligence_alive.txt
+                - test -f Intelligence_dead.txt
+                - ./sim 3
+               
